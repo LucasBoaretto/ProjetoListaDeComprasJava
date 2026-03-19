@@ -33,6 +33,12 @@ public class ListaDeComprasController {
             case 3:
                 exibirLista();
                 break;
+            case 4:
+                salvarEmArqTexto();
+                break;
+            case 5:
+                carregarDeArqTexto();
+                break;
             case 0:
                 view.exibirMensagem("Saíndo...");
                 break;
@@ -40,6 +46,14 @@ public class ListaDeComprasController {
                 view.exibirMensagem("Opção inválida!");
                 break;
         }
+    }
+
+    private void carregarDeArqTexto() {
+        model.carregarDeArquivoTexto("listaDeCompras.txt");
+    }
+
+    private void salvarEmArqTexto() {
+        model.salvarEmArquivoTexto("listaDeCompras.txt");
     }
 
     private void exibirLista() {
