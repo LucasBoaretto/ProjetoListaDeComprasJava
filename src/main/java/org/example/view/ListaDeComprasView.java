@@ -15,6 +15,8 @@ public class ListaDeComprasView {
         System.out.println("1.Adicionar Produto");
         System.out.println("2.Remover Produto");
         System.out.println("3.Exibir a Lista de Compras");
+        System.out.println("4.Salvar lista em Arquivo Texto");
+        System.out.println("5.Carregar lista do Arquivo Texto");
         System.out.println("0.Sair");
         System.out.println("Escolha uma opção: ");
     }
