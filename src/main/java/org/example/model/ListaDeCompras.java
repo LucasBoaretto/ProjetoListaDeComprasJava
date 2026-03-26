@@ -62,4 +62,27 @@ public class ListaDeCompras {
         }
     }
 
+    public void salvarEmArquivoBinario(String nomeArquivo){
+        if(!produtos.isEmpty())
+        {
+            try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nomeArquivo))) {
+                oos.writeObject(produtos);
+            } catch(IOException e){
+                System.out.println("Erro ao salvar arquivo: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Lista Vazia");
+        }
+    }
+
+    public void carregarDeArquivoBinario(String nomeArquivo){
+        produtos.clear();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeArquivo))){
+            produtos = (List<Produto>) ois.readObject();
+
+            System.out.println(produtos.toString());
+        } catch(ClassNotFoundException | IOException e){
+            System.out.println("Erro ao salvar arquivo: " + e);
+        }
+    }
 }

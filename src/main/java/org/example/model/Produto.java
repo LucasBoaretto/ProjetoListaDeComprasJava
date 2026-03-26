@@ -1,6 +1,9 @@
 package org.example.model;
 
-public class Produto {
+import java.io.Serializable;
+
+public class Produto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String nome;
     private int quantidade;
     private double preco;
@@ -22,6 +25,7 @@ public class Produto {
     public double getPreco() {
         return preco;
     }
+
     @Override
     public String toString(){
         return nome + " - " + quantidade + " unidades - R$" + preco;
