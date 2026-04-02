@@ -1,4 +1,7 @@
 package org.example.model;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +78,7 @@ public class ListaDeCompras {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void carregarDeArquivoBinario(String nomeArquivo){
         produtos.clear();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeArquivo))){
@@ -83,6 +87,33 @@ public class ListaDeCompras {
             System.out.println(produtos.toString());
         } catch(ClassNotFoundException | IOException e){
             System.out.println("Erro ao salvar arquivo: " + e);
+        }
+    }
+
+    public void salvarEmArquivoJson(String nomeArquivo) {
+        if(!produtos.isEmpty()){
+            try  {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Formata o JSON para ser legível
+                objectMapper.writeValue(new File(nomeArquivo), produtos);
+            } catch (IOException e) {
+                System.out.println("Erro ao salvar o arquivo: "+e.getMessage());
+            }
+        }else{
+            System.out.println("Lista vazia!");
+        }
+
+    }
+
+    public void carregarDeArquivoJson(String nomeArquivo)  {
+        produtos.clear();
+        try  {
+            ObjectMapper objectMapper = new ObjectMapper();
+            //getTypeFactory(): acessa o TypeFactory, que é responsável por construir tipos genéricos e complexos que Jackson não consegue inferir automaticamente (como listas, mapas...)
+            //constructCollectionType(): cria um tipo genérico que representa uma coleção (List) de elementos do tipo Produto.
+            produtos = objectMapper.readValue(new File(nomeArquivo), objectMapper.getTypeFactory().constructCollectionType(List.class, Produto.class));
+        } catch (IOException e){
+            System.out.println("Erro ao salvar o arquivo: "+e.getMessage());
         }
     }
 }
