@@ -39,6 +39,17 @@ public class ListaDeComprasController {
             case 5:
                 carregarDeArqTexto();
                 break;
+            case 6:
+                salvarEmArquivoBinario();
+                break;
+            case 7:
+                carregarDeArquivoBinario();
+            case 8:
+                salvarEmArquivoJson();
+                break;
+            case 9:
+                carregarDeArquivoJson();
+                break;
             case 0:
                 view.exibirMensagem("Saíndo...");
                 break;
@@ -46,6 +57,22 @@ public class ListaDeComprasController {
                 view.exibirMensagem("Opção inválida!");
                 break;
         }
+    }
+
+    private void carregarDeArquivoJson() {
+        model.carregarDeArquivoJson("listaDeCompras.json");
+    }
+
+    private void salvarEmArquivoJson() {
+        model.salvarEmArquivoJson("listaDeCompras.json");
+    }
+
+    private void carregarDeArquivoBinario() {
+        model.carregarDeArquivoBinario("listaDeCompras.bin");
+    }
+
+    private void salvarEmArquivoBinario() {
+        model.salvarEmArquivoBinario("listaDeCompras.bin");
     }
 
     private void carregarDeArqTexto() {

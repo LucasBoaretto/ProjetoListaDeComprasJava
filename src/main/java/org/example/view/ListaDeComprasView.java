@@ -17,6 +17,10 @@ public class ListaDeComprasView {
         System.out.println("3.Exibir a Lista de Compras");
         System.out.println("4.Salvar lista em Arquivo Texto");
         System.out.println("5.Carregar lista do Arquivo Texto");
+        System.out.println("6.Salvar lista em Arquivo Binario");
+        System.out.println("7.Carregar lista do Arquivo Binario");
+        System.out.println("8.Carregar lista do Arquivo JSON");
+        System.out.println("9.Carregar lista do Arquivo JSON");
         System.out.println("0.Sair");
         System.out.println("Escolha uma opção: ");
     }
