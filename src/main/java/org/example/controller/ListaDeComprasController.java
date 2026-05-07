@@ -1,16 +1,37 @@
 package org.example.controller;
 
+import org.example.command.*;
 import org.example.model.ListaDeCompras;
 import org.example.model.Produto;
 import org.example.view.ListaDeComprasView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ListaDeComprasController {
     private ListaDeCompras model;
     private ListaDeComprasView view;
+    private Map<Integer, Command> comandos = new HashMap<>();
 
     public ListaDeComprasController(ListaDeCompras model, ListaDeComprasView view){
         this.model = model;
         this.view = view;
+        registrarComandos();
+    }
+
+    private void registrarComandos(){
+        comandos.put(1, new AdicionarProdutoCommand(model, view));
+        comandos.put(2, new RemoverProdutoCommand(model, view));
+        comandos.put(3, new ExibirListaCommand(model, view));
+        comandos.put(4, new CarregarDeArqTextoCommand(model));
+        comandos.put(5, new SalvarEmArqTextoCommand(model));
+        comandos.put(6, new CarregarDeArqBinarioCommand(model));
+        comandos.put(7, new SalvarEmArquivoBinarioCommand(model));
+        comandos.put(8, new CarregarDeArquivoJsonCommand(model));
+        comandos.put(9, new SalvarEmArquivoJsonCommand(model));
+        comandos.put(10, new FiltrarPorQuantidadeMinimaCommand(model, view));
+        comandos.put(11, new CalcularValorTotalCommand(model));
+        comandos.put(12, new ImprimirListaCommand(model));
     }
 
     public void iniciar(){
@@ -18,86 +39,20 @@ public class ListaDeComprasController {
         do {
             view.exibirMenu();
             opcao = view.lerOpcao();
+            if(opcao != 0){
+                processarOpcao(opcao);
+            }
             processarOpcao(opcao);
         } while (opcao != 0);
+        view.exibirMensagem("Saíndo...");
     }
 
     private void processarOpcao(int opcao) {
-        switch (opcao){
-            case 1:
-                adicionarProduto();
-                break;
-            case 2:
-                removerProduto();
-                break;
-            case 3:
-                exibirLista();
-                break;
-            case 4:
-                salvarEmArqTexto();
-                break;
-            case 5:
-                carregarDeArqTexto();
-                break;
-            case 6:
-                salvarEmArquivoBinario();
-                break;
-            case 7:
-                carregarDeArquivoBinario();
-            case 8:
-                salvarEmArquivoJson();
-                break;
-            case 9:
-                carregarDeArquivoJson();
-                break;
-            case 0:
-                view.exibirMensagem("Saíndo...");
-                break;
-            default:
-                view.exibirMensagem("Opção inválida!");
-                break;
+        Command command = comandos.get(opcao);
+        if(command != null){
+            command.executar();
+        } else {
+            view.exibirMensagem("Opção inválida");
         }
-    }
-
-    private void carregarDeArquivoJson() {
-        model.carregarDeArquivoJson("listaDeCompras.json");
-    }
-
-    private void salvarEmArquivoJson() {
-        model.salvarEmArquivoJson("listaDeCompras.json");
-    }
-
-    private void carregarDeArquivoBinario() {
-        model.carregarDeArquivoBinario("listaDeCompras.bin");
-    }
-
-    private void salvarEmArquivoBinario() {
-        model.salvarEmArquivoBinario("listaDeCompras.bin");
-    }
-
-    private void carregarDeArqTexto() {
-        model.carregarDeArquivoTexto("listaDeCompras.txt");
-    }
-
-    private void salvarEmArqTexto() {
-        model.salvarEmArquivoTexto("listaDeCompras.txt");
-    }
-
-    private void exibirLista() {
-        view.exibirMensagem(model.toString());
-    }
-
-    private void removerProduto() {
-        String nome = view.lerNomeProduto();
-
-        model.removrProduto(nome);
-    }
-
-    private void adicionarProduto() {
-        String nome = view.lerNomeProduto();
-        int quantidade = view.lerQuantidade();
-        double preco = view.lerPreco();
-
-        model.adicionarProduto(new Produto(nome, quantidade, preco));
     }
 }

@@ -8,7 +8,7 @@ import org.example.view.ListaDeComprasView;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        ListaDeCompras model = new ListaDeCompras();
+        ListaDeCompras model = ListaDeCompras.getInstancia();
         ListaDeComprasView view = new ListaDeComprasView();
         ListaDeComprasController controller = new ListaDeComprasController(model, view);
 
