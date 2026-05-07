@@ -1,6 +1,7 @@
 package org.example.model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.example.persistence.PersistenciaStrategy;
 
 import java.io.*;
 import java.nio.file.Files;

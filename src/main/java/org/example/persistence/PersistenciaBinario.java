@@ -1,4 +1,6 @@
-package org.example.model;
+package org.example.persistence;
+
+import org.example.model.Produto;
 
 import java.io.*;
 import java.util.ArrayList;
