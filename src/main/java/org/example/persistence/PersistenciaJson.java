@@ -1,7 +1,8 @@
-package org.example.model;
+package org.example.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.example.model.Produto;
 
 import java.io.File;
 import java.io.IOException;
